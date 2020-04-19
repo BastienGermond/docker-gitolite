@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Set SSH_KEY from the secrets file 'gitolite-ssh_key' if exist
+if [ -f /run/secrets/gitolite-ssh_key ]; then
+    SSH_KEY="$(cat /run/secrets/gitolite-ssh_key)"
+fi
+
 # if command is sshd, set it up correctly
 if [ "${1}" = 'sshd' ]; then
   set -- /usr/sbin/sshd -D
